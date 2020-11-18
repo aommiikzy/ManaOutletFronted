@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>MANA OUTLET</title>
+
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+	<!-- Import Google Icon Font -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+	<!-- Import Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+	<!-- Set Style -->
+	<style>
+		body,
+		select,
+		button,
+		input {
+			font-family: "Kanit", sans-serif;
+		}
+
+		.head {
+			color: black;
+			background-color: #FF6600;
+			margin: 5px;
+			margin-top: 0%;
+			margin-right: 0%;
+
+			height: 100px;
+			font-size: 300px;
+			font-color: white;
+
+		}
+
+		.btn {
+
+			background-color: #FF6600;
+
+		}
+
+		.btn:hover {
+			background-color: #E86C1B;
+			/* Green */
+			color: white;
+		}
+
+		placeholder {
+			text-align: right;
+		}
+
+		.headText {
+
+			color: white;
+			background-color: #FF6600;
+
+			margin: 20px;
+			font-size: 30px;
+		}
+
+		input[type="text"]::placeholder {
+			text-align: left;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Start Container -->
+	<div class="container">
+		<!-- Start Header Content -->
+
+
+		<div class="head">
+			<label><h6 class = "headText" style = "font-size: 30px;"> <img src="https://cdn.jsdelivr.net/gh/aommiikzy/MANA-Outlet@master/manaLogo.png" alt="Girl in a jacket" width="80" height="80" style = "position:absolute; left:75%; top:3.5%;"></h6></label>
+			<label><h6 class = "headText" style = "font-size: 30px;">ส่งบิล</h6></label>
+			<label><h6 class = "headText" style = "font-size: 20px;">กรุณากรอกรายละเอียด</h6></label>
+
+		</div>
+		<!-- Start Form Content -->
+		<div class="row">
+			<form id="carForm" class="col s12" autocomplete="off">
+
+
+
+				<div style="float:left;width:50%">ชื่อแคชเชียร์</div>
+				<div style="float:left;width:50%">
+					<input id="dateInput" type="text" required class="validate" placeholder="ชื่อแคชเชียร์" /></div>
+
+					<div style="float:left;width:50%">สาขา</div>
+					<div style="float:left;width:50%">
+						<input id="dateInput" type="text" required class="validate" placeholder="สาขา" /></div>
+
+						<div style="float:left;width:50%">ยอดเงินสด</div>
+						<div style="float:left;width:50%">
+							<input id="dateInput" type="text" required class="validate" placeholder="ยอดเงินสด" /></div>
+
+							<div style="float:left;width:50%">ยอดเงินโอน</div>
+							<div style="float:left;width:50%">
+								<input id="dateInput" type="text" required class="validate" placeholder="ยอดเงินโอน" /></div>
+
+								<div style="float:left;width:50%">ยอดจาก POS</div>
+								<div style="float:left;width:50%">
+									<input id="dateInput" type="text" required class="validate" placeholder="ยอดจาก POS" /></div>
+
+
+									<button id="btn" onclick="location.href='finish.html'" class="btn waves-effect waves-light" type="button"  style = "margin-left:auto;margin-right:auto;display:block;margin-top:55%;margin-bottom:0%" >
+										<!-- <a class="btn waves-effect waves-light" href ="finish.html">บันทึกและส่ง</a> -->
+										บันทึกและส่ง
+
+          </button>
+
+
+
+			</form>
+		</div>
+		<!-- End Form Content -->
+
+		<!-- Start Table Content -->
+
+		<div id="result"></div>
+		<!-- End Table Content -->
+
+		<!-- Start Footer -->
+
+		<!-- End Footer -->
+	</div>
+	<!-- End Container -->
+
+</body>
+
+</html>
