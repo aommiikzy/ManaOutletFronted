@@ -1,8 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-	<meta charset="UTF-8" />
+		<!-- jade -->
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/8.0.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need --> 
+    <script defer src="/__/firebase/8.0.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-functions.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-analytics.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-remote-config.js"></script>
+    <script defer src="/__/firebase/8.0.2/firebase-performance.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+
+	<!-- jade -->
+    <meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<title>MANA OUTLET</title>
@@ -22,6 +45,19 @@
 	<!-- <script type="text/javascript"> 
 	document.getElementById("buttonload").style.display = "none";
 	</script> -->
+  <style>
+    #pictureUrl { display: block; margin: 0 auto }
+  </style>
+  <img id="pictureUrl" width="25%">
+  <p id="userId"></p>
+  <p id="displayName"></p>
+  <p id="statusMessage"></p>
+  <p id="getDecodedIDToken"></p>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.3.0/sdk.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   
+  
+
 	<style>
 		body,
 		select,
@@ -51,9 +87,7 @@
   margin-left: 50%;
   margin-right: 50%;
   margin-top: 50%;
-  font-size: 16px; /* Set a font-size */
- 
-  
+  font-size: 16px; /* Set a font-size */  
 }
 
 /* Add a right margin to each icon */
@@ -62,8 +96,25 @@
   margin-right: 50%;
 }
 
-		.btn {
 
+		.upload-btn {
+			margin-left: 0%;
+			
+			margin-top: 5%;
+			background-color: #FF6600;
+		}
+		.image_upload{
+			margin-top: 5%;
+			margin-left: 0%;
+			margin-right: 50%;
+		
+		}
+
+		.btn {
+			margin-left: 40%;
+			margin-right: 30%;
+
+			margin-top: 20%;
 			background-color: #FF6600;
 
 		}
@@ -91,11 +142,48 @@
 			text-align: left;
 		}
 	</style>
-</head>
+  </head>
+  <body>
+	<!-- jade -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-<body>
-	<!-- Start Container -->
-	<div class="container">
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ]
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script>
+	<!-- jade -->
+    <div class="container">
 		<!-- Start Header Content -->
 
 
@@ -107,7 +195,7 @@
 		</div>
 		<!-- Start Form Content -->
 		<div class="row">
-			<form id="carForm" class="col s12" autocomplete="off">
+			<div id="carForm" class="col s12" autocomplete="off">
 
 
 
@@ -124,19 +212,16 @@
 						<div style="float:left;width:50%">
 							<input id="posInput"  type="number" step="0.01" required class="validate" placeholder="ยอดจาก POS" /></div>
 
+              <input  type="file" name="image" accept="image/*" id="image_upload" class = "image_upload" >
+              <button id="upload-btn" class="upload-btn" onclick="uploadPic()">อัพโหลดรูป</button>
 							
 							  </div>
-							<button id="btn" onclick="buttonClick()" class="btn waves-effect waves-light" type="button"  style = "margin-left:auto;margin-right:auto;display:block;margin-top:55%;margin-bottom:0%" >
+							<button id="btn" onclick="buttonClick()" class="btn waves-effect waves-light" type="button"  >
 										<!-- <a class="btn waves-effect waves-light" href ="finish.html">บันทึกและส่ง</a> -->
 										บันทึกและส่ง
 
           </button>
-
-
-
-			</form><button class="buttonload" id="buttonload" >
-								<i class="fa fa-spinner fa-spin"></i>Loading
-							  </button>
+        </div>
 		</div>
 		<!-- End Form Content -->
 
@@ -151,6 +236,5 @@
 	</div>
 	<!-- End Container -->
 
-</body>
-
+  </body>
 </html>
